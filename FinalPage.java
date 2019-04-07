@@ -9,6 +9,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 import java.awt.GradientPaint;
 
+/*
+  FinalImage class
+*/
 public class FinalImage{
   public static final int WIDTH=1024;
   public static final int HEIGHT=580;
