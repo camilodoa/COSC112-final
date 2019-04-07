@@ -9,6 +9,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 import java.awt.GradientPaint;
 
+// Hello. Kelley was here.
+
 public class App {
 
   public App(){
