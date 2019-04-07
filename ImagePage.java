@@ -10,9 +10,12 @@ import java.awt.RenderingHints;
 import java.awt.GradientPaint;
 
 public class ImagePage extends JPanel{
-  public static final int WIDTH=1024;
-  public static final int HEIGHT=580;
+  public ImagePage(){
+    public static final int WIDTH=1024;
+    public static final int HEIGHT=580;
 
+  }
+  
   public void paintComponent(Graphics g){
 
   }
