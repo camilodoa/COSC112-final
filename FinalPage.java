@@ -10,7 +10,7 @@ import java.awt.RenderingHints;
 import java.awt.GradientPaint;
 
 
-public class FinalImage{
+public class FinalImage extends JPanel implements Page{
   public FinalImage(){
     public static final int WIDTH=1024;
     public static final int HEIGHT=580;

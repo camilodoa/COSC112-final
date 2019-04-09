@@ -9,10 +9,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 import java.awt.GradientPaint;
 
-public class GreetingPage{
+public class GreetingPage extends JPanel implements Page{
   public GreetingPage(){
-    public static final int WIDTH=1024;
-    public static final int HEIGHT=580;
   }
 
   public void paintComponent(Graphics g){
