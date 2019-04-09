@@ -10,7 +10,16 @@ import java.awt.RenderingHints;
 import java.awt.GradientPaint;
 
 public class GreetingPage extends JPanel implements Page{
+  private static int HEIGHT;
+  private static int WIDTH;
+
   public GreetingPage(){
+    // get fields from interface
+    this.HEIGHT = Page.HEIGHT;
+    this.WIDTH = Page.WIDTH;
+
+    //set screen size
+    this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
   }
 
   public void paintComponent(Graphics g){

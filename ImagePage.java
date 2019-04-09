@@ -1,19 +1,26 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Dimension;
+import java.awt.*;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-import java.util.Random;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.RenderingHints;
-import java.awt.GradientPaint;
+
 
 public class ImagePage extends JPanel implements Page{
+  private static int HEIGHT;
+  private static int WIDTH;
+
   public ImagePage(){
+    // get fields from interface
+    this.HEIGHT = Page.HEIGHT;
+    this.WIDTH = Page.WIDTH;
+
+    //set screen size
+    this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
   }
 
   public void paintComponent(Graphics g){
+    //Draw the page
+
+    g.setColor(Color.WHITE);
+    g.fillRect(0, 0, WIDTH, HEIGHT);
 
   }
 

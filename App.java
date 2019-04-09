@@ -9,14 +9,15 @@ import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 import java.awt.GradientPaint;
 
-// Hello. Kelley was here.
 
-public class App {
+public class App implements Page{
 
   public App(){
     this.showGreeting = true;
     this.showImage = false;
     this.showFinalImage = false;
+    this.WIDTH = Page.WIDTH;
+    this.HEIGHT = Page.HEIGHT;
   }
 
   // state variables that lets App know where its at ===========================
@@ -25,6 +26,8 @@ public class App {
   private boolean showFinalImage;
   // end of state variables ====================================================
 
+  private static int HEIGHT;
+  private static int WIDTH;
 
   // state change variables ====================================================
   private void showGreetingToImage(){
@@ -46,7 +49,23 @@ public class App {
 
   public static void main(String[] args){
     System.out.println("app time");
+
+    JFrame appPage = new JFrame("DistortMe!");
+
+    // Greeting page:
+    // greeting page declaration here
+
+    // Image edit page:
+    ImagePage imageInstance = new ImagePage();
+
+    // Final image display page:
+    // final image page declaration here
+
+    //appPage.setContentPane();
+
+    appPage.setContentPane(imageInstance);
+    appPage.pack();
+    appPage.setVisible(true);
+
   }
-
-
 }
