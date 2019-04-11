@@ -13,6 +13,9 @@ import java.awt.Color;
 import java.lang.Process;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 public class ImagePage extends JPanel implements Page{
@@ -53,6 +56,9 @@ public class ImagePage extends JPanel implements Page{
 
     //run python analysis
     this.runPython();
+
+    this.readPython();
+
   }
 
 
@@ -68,7 +74,23 @@ public class ImagePage extends JPanel implements Page{
   }
 
   private void readPython(){
-    
+    try{
+      Scanner sc = new Scanner(new File("picData.txt"));
+      //first count the lines so we know how big our file is
+
+      System.out.println("lines are " + lines);
+      String finalString = "";
+      while(sc.hasNextLine()){
+        String toAdd = sc.nextLine();
+        System.out.println(toAdd);
+        finalString += toAdd;
+      }
+      System.out.println(finalString);
+    }
+    catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
   }
 
 
@@ -100,7 +122,7 @@ public class ImagePage extends JPanel implements Page{
 
     g.setColor(Color.WHITE);
     g.setFont(headerFont);
-    g.drawString("DistortMe!", WIDTH/2-80, 50);
+    g.drawString("~DistortMe~", WIDTH/2-80, 50);
 
 
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
