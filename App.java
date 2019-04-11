@@ -50,13 +50,14 @@ public class App implements Page{
   public static void main(String[] args){
     System.out.println("app time");
 
-    JFrame appPage = new JFrame("DistortMe!");
+    JFrame appPage = new JFrame("DistortMe App");
 
     // Greeting page:
     // greeting page declaration here
 
     // Image edit page:
-    ImagePage imageInstance = new ImagePage();
+    String imPath = "./images/profile1.jpg"; //would get this from a GreetingPage method
+    ImagePage imageInstance = new ImagePage(imPath);
 
     // Final image display page:
     // final image page declaration here
