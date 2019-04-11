@@ -27,7 +27,7 @@ public class GreetingPage extends JPanel implements Page{
 
     // title image
     try {
-      titleImage = ImageIO.read(getClass().getResourceAsStream("/FaceDisorter.jpg"));
+      titleImage = ImageIO.read(getClass().getResourceAsStream("/images/FaceDisorter.jpg"));
     } catch (IOException e) {
       e.printStackTrace();
     }
