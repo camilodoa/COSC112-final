@@ -10,10 +10,13 @@ import java.awt.RenderingHints;
 import java.awt.GradientPaint;
 import java.awt.image.BufferedImage;
 import java.io.IOException; 
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 
 public class GreetingPage extends JPanel implements Page{
   private static int HEIGHT;
   private static int WIDTH;
+  private BufferedImage titleImage;
 
   public GreetingPage(){
     // get fields from interface
@@ -22,8 +25,6 @@ public class GreetingPage extends JPanel implements Page{
 
     // set screen size
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
-    private BufferedImage titleImage;
 
     // title image
     try {
@@ -42,11 +43,13 @@ public class GreetingPage extends JPanel implements Page{
     g.fillRect(0,0,WIDTH,HEIGHT);
 
     // write title
-    g.drawImage(titleImage, 50, 50);
+    g.drawImage(titleImage, 50, 50, null);
 
     // make button
     g.setColor(new Color(124,252,0));
-    g.fillOval(WIDTH/2,HEIGHT-300,200,200);
+    boolean unclicked = true;
+    g.draw3DRect(WIDTH/2,HEIGHT-300,300,150, unclicked);
+    //g.fillOval(WIDTH/2,HEIGHT-300,200,200);
 
     // make description
     g.setColor(Color.WHITE);
