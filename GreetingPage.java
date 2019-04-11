@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 import java.awt.GradientPaint;
+import java.awt.image.BufferedImage;
+import java.io.IOException; 
 
 public class GreetingPage extends JPanel implements Page{
   private static int HEIGHT;
@@ -20,6 +22,15 @@ public class GreetingPage extends JPanel implements Page{
 
     // set screen size
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+
+    private BufferedImage titleImage;
+
+    // title image
+    try {
+      titleImage = ImageIO.read(getClass().getResourceAsStream("/FaceDisorter.jpg"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -29,6 +40,9 @@ public class GreetingPage extends JPanel implements Page{
     // set background color
     g.setColor(new Color(25,25,112));
     g.fillRect(0,0,WIDTH,HEIGHT);
+
+    // write title
+    g.drawImage(titleImage, 50, 50);
 
     // make button
     g.setColor(new Color(124,252,0));
