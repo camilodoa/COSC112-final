@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
+import java.lang.Process;
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
 
 
 public class ImagePage extends JPanel implements Page{
@@ -48,10 +51,27 @@ public class ImagePage extends JPanel implements Page{
     //make a header
     this.headerFont = new Font("SansSerif", Font.BOLD, 30);
 
+    //run python analysis
+    this.runPython();
   }
 
 
   // HELPER METHODS
+  private void runPython(){
+    String command = "python3 faceRecog.py " + imagePath;
+    try{
+      Process p = Runtime.getRuntime().exec(command);
+      System.out.println("ran process p");
+    }catch(IOException ioe){
+      ioe.printStackTrace();
+    }
+  }
+
+  private void readPython(){
+    
+  }
+
+
   private static BufferedImage resize(BufferedImage img, int height, int width) {
     // resizes BufferedImage
     // code from:
