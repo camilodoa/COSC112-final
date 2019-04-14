@@ -55,7 +55,7 @@ public class Main implements Page{
     // Greeting page:
     // greeting page declaration here
 
-    // Image edit page: 
+    // Image edit page:
     String imPath = "./images/profile1.jpg"; //would get this from a GreetingPage method
     ImagePage imageInstance = new ImagePage(imPath);
 
