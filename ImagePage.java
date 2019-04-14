@@ -27,7 +27,6 @@ import javax.swing.JButton;
 public class ImagePage extends Page{
   //FIELDS
 
-  private String imagePath;
   private BufferedImage profile;
   private Font headerFont;
   private Color headerColor = new Color(0,0,255);
@@ -39,7 +38,7 @@ public class ImagePage extends Page{
 
     //get a BufferedImage from the image
     try{
-      this.profile = ImageIO.read(new File(imagePath));
+      this.profile = ImageIO.read(new File(this.imagePath));
 
       //resize
       profile = resize(profile, 400, 400);

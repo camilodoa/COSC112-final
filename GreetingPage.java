@@ -83,7 +83,7 @@ public class GreetingPage extends Page {
           System.out.println(fileToPass);
           System.out.println(selectedFile.getName());
 
-          
+          setImagePath(fileToPass);        
 
           showGreetingToImage(); //changes pages
         }
