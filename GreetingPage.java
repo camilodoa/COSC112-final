@@ -6,12 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javafx.stage.FileChooser;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class GreetingPage extends JPanel implements Page { //ActionListener
+public class GreetingPage extends Page { 
   private static int HEIGHT;
   private static int WIDTH;
   //private BufferedImage titleImage;
@@ -64,9 +63,14 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
     g.setColor(new Color(124,252,0));
     g.drawString("To get started, click on the button to upload an image.",x_text,y_text+120);
 
+    // Make button
+    JButton b = new JButton("Select .jpg");
+    b.setBounds(100, 400, 100, 50);
+    add(b);    
+
   }    
 
-  public static void main(String[] args) {
+  public void main(String[] args) {
 
     // Set the frame
     JFrame welcome = new JFrame("Face Distorter 2000");
@@ -75,6 +79,7 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
     welcome.pack();
     welcome.setVisible(true);
   
+  /*
     // Add a button
     JButton b = new JButton("Select .jpg");
     b.setBounds(100, 400, 100, 50);
@@ -101,9 +106,12 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
         System.out.println(fileToPass);
         System.out.println(selectedFile.getName());
         
+        showGreetingToImage(); //changes pages
       }
     }       
       });
+
+      */
   }
 
   // Implement more here to pass the image on to the next stage of the App
