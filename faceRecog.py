@@ -1,5 +1,5 @@
 '''
-Tutorial for this code found at:
+Tutorial for basic facial recog code found at:
 https://realpython.com/face-recognition-with-python/
 
 make sure you have cv2 installed
@@ -39,9 +39,9 @@ faces = faceCascade.detectMultiScale(
 
 facePoints = [] #toReturn
 
-print ( "Found {0} faces!".format(len(faces)) )
+# print ( "Found {0} faces!".format(len(faces)) )
 
-i = 0
+
 # Draw a rectangle around the faces
 for x, y, w, h in faces:
     cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -54,19 +54,20 @@ for x, y, w, h in faces:
     j = 0
     toAppendtotoAppend = []
     for (ex,ey,ew,eh) in eyes:
-        cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
-        toAppendtotoAppend.append(ex)
-        toAppendtotoAppend.append(ey)
+        toAppendtotoAppend.append(x + ex)
+        toAppendtotoAppend.append(y + ey)
         toAppendtotoAppend.append(ew)
         toAppendtotoAppend.append(eh)
+
+
+        cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
         j+=1
         if j == 2:
             toAppend.append(toAppendtotoAppend)
             break
-    i += 1
+
     facePoints.append(toAppend)
 
-print(facePoints)
 
 # cv2.imshow("Faces found", image)
 # cv2.waitKey(0)
@@ -86,6 +87,6 @@ for face in facePoints:
         for eyePoint in face[4]:
             data.write(str(eyePoint) + " ")
 
-    data.write("\n\n")
+    data.write("\n")
 
 data.close()

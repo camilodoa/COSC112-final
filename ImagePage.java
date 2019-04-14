@@ -16,23 +16,24 @@ import javax.tools.ToolProvider;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Vector;
+import java.lang.Thread;
+import java.util.Arrays;
+import java.awt.BasicStroke;
 
 
-public class ImagePage extends JPanel implements Page{
+public class ImagePage extends  Page{
   //FIELDS
-  private static int HEIGHT;
-  private static int WIDTH;
+
   private String imagePath;
   private BufferedImage profile;
   private Font headerFont;
   private Color headerColor = new Color(0,0,255);
+  private Vector<Integer[]> coordinates;
 
 
   // CONSTRUCTOR
   public ImagePage(String imPath){
-    // get fields from interface
-    this.HEIGHT = Page.HEIGHT;
-    this.WIDTH = Page.WIDTH;
 
     // get path from constructor
     this.imagePath = imPath;
@@ -43,6 +44,10 @@ public class ImagePage extends JPanel implements Page{
 
       //resize
       profile = resize(profile, 400, 400);
+
+      File outputfile = new File("profile.png");
+
+      ImageIO.write(profile, "png", outputfile);
 
     }catch(IOException e){
       System.out.println(e);
@@ -57,42 +62,48 @@ public class ImagePage extends JPanel implements Page{
     //run python analysis
     this.runPython();
 
-    this.readPython();
-
   }
 
 
   // HELPER METHODS
   private void runPython(){
-    String command = "python3 faceRecog.py " + imagePath;
+    String command = "python3 faceRecog.py " + "profile.png";
     try{
       Process p = Runtime.getRuntime().exec(command);
-      System.out.println("ran process p");
-    }catch(IOException ioe){
-      ioe.printStackTrace();
+
+      p.waitFor();
+
+      this.coordinates = readPython();
+
+    }catch(IOException | InterruptedException e){
+      System.out.println(e);
     }
   }
 
-  private void readPython(){
+  private Vector<Integer[]> readPython(){
     try{
+
       Scanner sc = new Scanner(new File("picData.txt"));
       //first count the lines so we know how big our file is
+      Vector<Integer[]> toReturn = new Vector<Integer[]>();
 
-      System.out.println("lines are " + lines);
-      String finalString = "";
       while(sc.hasNextLine()){
-        String toAdd = sc.nextLine();
-        System.out.println(toAdd);
-        finalString += toAdd;
+
+        String line = sc.nextLine();
+
+        final Integer[] ints = Arrays.stream(line.split(" ")).map(Integer::parseInt).toArray(Integer[]::new);
+
+        toReturn.add(ints);
       }
-      System.out.println(finalString);
+      sc.close();
+
+      return toReturn;
     }
-    catch (FileNotFoundException e) {
+    catch (Exception e) {
       e.printStackTrace();
+      return null;
     }
-
   }
-
 
   private static BufferedImage resize(BufferedImage img, int height, int width) {
     // resizes BufferedImage
@@ -111,8 +122,11 @@ public class ImagePage extends JPanel implements Page{
     return resized;
   }
 
-
   public void paintComponent(Graphics g){
+    Graphics2D g2 = (Graphics2D) g;
+    float thickness = 2;
+
+
     //Draw the page
     g.setColor(Color.WHITE);
     g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -126,6 +140,23 @@ public class ImagePage extends JPanel implements Page{
 
 
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
+
+    for(Integer[] coordinate : this.coordinates){
+      if(coordinate.length == 4){
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(new Color(70,130,180));
+        g.drawRect(coordinate[0]+WIDTH/2-400/2,coordinate[1] + HEIGHT/2-400/2 + 40, coordinate[2], coordinate[3]);
+
+      }else if (coordinate.length == 8){
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(new Color(70,130,180));
+        g.drawRect(coordinate[0]+WIDTH/2-400/2, coordinate[1] + HEIGHT/2-400/2 + 40 , coordinate[2], coordinate[3]);
+
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(new Color(70,130,180));
+        g.drawRect(coordinate[4]+WIDTH/2-400/2, coordinate[5] + HEIGHT/2-400/2 + 40 , coordinate[6], coordinate[7]);
+      }
+    }
 
   }
 }
