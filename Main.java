@@ -17,11 +17,8 @@ public class Main extends Page{
 
   }
 
-
-  public static void main(String[] args){
-    System.out.println("app time");
-
-    JFrame appPage = new JFrame("DistortMe App");
+  public void run(){
+    JFrame appPage = new JFrame("Face Distorter 2000");
 
     // Final image display page:
     // final image page declaration here
@@ -47,6 +44,23 @@ public class Main extends Page{
     appPage.setContentPane(imageInstance);
     appPage.pack();
     appPage.setVisible(true);
+
+    while(showFinalImage!= true){
+      try{
+        Thread.sleep(500);
+      }catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    //Initialize final page
+    System.out.println("got to final page");
+  }
+
+
+  public static void main(String[] args){
+    Main app = new Main();
+    app.run();
 
   }
 }

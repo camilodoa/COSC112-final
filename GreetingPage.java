@@ -39,32 +39,42 @@ public class GreetingPage extends Page {
     super.paintComponent(g);
 
     // Set background color
-    g.setColor(new Color(25,25,112));
+    // g.setColor(new Color(25,25,112));
+    g.setColor(Color.WHITE);
     g.fillRect(0,0,WIDTH,HEIGHT);
+
 
     // Write title
     //g.drawImage(titleImage, 50, 50, 100, 100, null);
+    Color headerColor = new Color(0,0,255);
+    Font headerFont = new Font("SansSerif", Font.BOLD, 30);
+    g.setColor(headerColor);
+    g.fillRect(0, 0, WIDTH, 100);
     g.setColor(Color.WHITE);
-    g.drawString("FACE DISTORTER 2000",50,50);
+    g.setFont(headerFont);
+    g.drawString("Face Distorter 2000", WIDTH/2-150, 50);
+
 
     // Make description
-    g.setColor(Color.WHITE);
-    int x_text = 100;
-    int y_text = 100;
-    g.drawString("Welcome to the Face Distorter 2000 program.",x_text,y_text);
-    g.drawString("You will first be prompted to upload an image that includes a face.",x_text,y_text+20);
-    g.drawString("Then, you will be asked to identify the location of the face,",x_text,y_text+40);
-    g.drawString("as well as eyes and mouth, using your mouse or trackpad.",x_text,y_text+60);
-    g.drawString("Afterwards, you will be able to distort the face via a number of selections.",x_text,y_text+80);
-    g.drawString("You will then be provided with the distorted image and options to save.",x_text,y_text+100);
+    Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
+    g.setFont(descriptionFont);
+    g.setColor(Color.BLUE);
+    int x_text = WIDTH/4+50;
+    int y_text = HEIGHT/4;
+    g.drawString("Welcome to the Face Distorter 2000 program!",x_text,y_text);
+    g.drawString("Click the button below to select a profile picture",x_text,y_text+40);
+    g.drawString("Our facial recognition back end will identify your face and eyes",x_text,y_text+80);
+    g.drawString("If your image was too complicated for it to identify, you will be able to reselect an image",x_text,y_text+120);
+    g.drawString("Afterwards, you will be able to distort the face via a number of selections",x_text,y_text+160);
+    g.drawString("and save the distorted image!",x_text,y_text+180);
 
     // First instructions
     g.setColor(new Color(124,252,0));
-    g.drawString("To get started, click on the button to upload an image.",x_text,y_text+120);
+    g.drawString("To get started, click the button below:",x_text,y_text+220);
 
     // Make button
-    JButton b = new JButton("Select .jpg");
-    b.setBounds(100, 400, 100, 50);
+    JButton b = new JButton("Select your image");
+    b.setBounds(WIDTH/2-100, HEIGHT - HEIGHT/4, 200, 50);
     add(b);
 
     JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -73,17 +83,23 @@ public class GreetingPage extends Page {
     b.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("clicked");
+        // System.out.println("clicked");
 
         int returnValue = fc.showSaveDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
           File selectedFile = fc.getSelectedFile();
           String fileToPass = selectedFile.getPath();
-          System.out.println(fileToPass);
-          System.out.println(selectedFile.getName());
+          // System.out.println(fileToPass);
+          // System.out.println(selectedFile.getName());
+          g.setColor(Color.WHITE);
+          g.drawRect(WIDTH/2-100, HEIGHT - HEIGHT/4, 200, 50);
 
-          setImagePath(fileToPass);        
+          g.setColor(Color.BLACK);
+          g.drawString("Loading...",WIDTH/2-100, HEIGHT - HEIGHT/4 );
+          repaint();
+
+          setImagePath(fileToPass);
 
           showGreetingToImage(); //changes pages
         }

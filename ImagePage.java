@@ -22,11 +22,17 @@ import java.util.Arrays;
 import java.awt.BasicStroke;
 import java.awt.event.*;
 import javax.swing.JButton;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class ImagePage extends Page{
   //FIELDS
-
   private BufferedImage profile;
   private Font headerFont;
   private Color headerColor = new Color(0,0,255);
@@ -123,7 +129,8 @@ public class ImagePage extends Page{
   public void paintComponent(Graphics g){
     Graphics2D g2 = (Graphics2D) g;
     float thickness = 2;
-    JButton back = new JButton("Back");
+    JButton reselect = new JButton("Reselect");
+    JButton next = new JButton("Distort Me!");
 
 
     //Draw the page
@@ -135,11 +142,59 @@ public class ImagePage extends Page{
     g.fillRect(0, 0, WIDTH, 100);
     g.setColor(Color.WHITE);
     g.setFont(headerFont);
-    g.drawString("~DistortMe~", WIDTH/2-80, 50);
+    g.drawString("Face Distorter 2000", WIDTH/2-150, 50);
 
-    //Button
-    back.setBounds(WIDTH/4, HEIGHT/2, 40, 20);
-    add(back);
+    //Buttons
+    reselect.setBounds(WIDTH/4-150, HEIGHT/2, 80, 40);
+    add(reselect);
+    next.setBounds(WIDTH - WIDTH/4+50, HEIGHT/2, 80, 40);
+    add(next);
+
+    next.addActionListener(new ActionListener(){
+      @Override
+      public void actionPerformed(ActionEvent e){
+        imageToFinal();
+      }
+    });
+
+
+    JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+    // Add an action listener
+    reselect.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        int returnValue = fc.showSaveDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+          File selectedFile = fc.getSelectedFile();
+          String fileToPass = selectedFile.getPath();
+
+          setImagePath(fileToPass);
+
+          //get a BufferedImage from the image
+          try{
+            profile = ImageIO.read(new File(imagePath));
+
+            //resize
+            profile = resize(profile, 400, 400);
+
+            File outputfile = new File("profile.png");
+
+            ImageIO.write(profile, "png", outputfile);
+
+          }catch(IOException exp){
+            System.out.println(exp);
+          }
+
+          //run python analysis on new image
+          runPython();
+
+          //re render
+          repaint();
+          }
+        }
+      });
 
 
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
@@ -160,7 +215,5 @@ public class ImagePage extends Page{
         g.drawRect(coordinate[4]+WIDTH/2-400/2, coordinate[5] + HEIGHT/2-400/2 + 40 , coordinate[6], coordinate[7]);
       }
     }
-
-
   }
 }
