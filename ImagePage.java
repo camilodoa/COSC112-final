@@ -20,9 +20,11 @@ import java.util.Vector;
 import java.lang.Thread;
 import java.util.Arrays;
 import java.awt.BasicStroke;
+import java.awt.event.*;
+import javax.swing.JButton;
 
 
-public class ImagePage extends  Page{
+public class ImagePage extends Page{
   //FIELDS
 
   private String imagePath;
@@ -33,10 +35,7 @@ public class ImagePage extends  Page{
 
 
   // CONSTRUCTOR
-  public ImagePage(String imPath){
-
-    // get path from constructor
-    this.imagePath = imPath;
+  public ImagePage(){
 
     //get a BufferedImage from the image
     try{
@@ -125,18 +124,23 @@ public class ImagePage extends  Page{
   public void paintComponent(Graphics g){
     Graphics2D g2 = (Graphics2D) g;
     float thickness = 2;
+    JButton back = new JButton("Back");
 
 
     //Draw the page
     g.setColor(Color.WHITE);
     g.fillRect(0, 0, WIDTH, HEIGHT);
 
+    //Header
     g.setColor(headerColor);
     g.fillRect(0, 0, WIDTH, 100);
-
     g.setColor(Color.WHITE);
     g.setFont(headerFont);
     g.drawString("~DistortMe~", WIDTH/2-80, 50);
+
+    //Button
+    back.setBounds(WIDTH/4, HEIGHT/2, 40, 20);
+    add(back);
 
 
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
@@ -157,6 +161,7 @@ public class ImagePage extends  Page{
         g.drawRect(coordinate[4]+WIDTH/2-400/2, coordinate[5] + HEIGHT/2-400/2 + 40 , coordinate[6], coordinate[7]);
       }
     }
+
 
   }
 }

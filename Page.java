@@ -3,6 +3,7 @@ import javax.swing.JPanel;
 public class Page extends JPanel{
   static final int WIDTH=1024;
   static final int HEIGHT=580;
+  static String imagePath;
 
   static boolean showGreeting = true;
   static boolean showImage = false;
