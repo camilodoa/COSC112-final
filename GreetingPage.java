@@ -1,7 +1,6 @@
 
 import java.io.IOException; 
 import javax.imageio.ImageIO;
-import javafx.stage.FileChooser;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
