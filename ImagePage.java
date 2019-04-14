@@ -19,12 +19,12 @@ import java.io.FileNotFoundException;
 import java.util.Vector;
 import java.lang.Thread;
 import java.util.Arrays;
+import java.awt.BasicStroke;
 
 
-public class ImagePage extends JPanel implements Page{
+public class ImagePage extends  Page{
   //FIELDS
-  private static int HEIGHT;
-  private static int WIDTH;
+
   private String imagePath;
   private BufferedImage profile;
   private Font headerFont;
@@ -34,9 +34,6 @@ public class ImagePage extends JPanel implements Page{
 
   // CONSTRUCTOR
   public ImagePage(String imPath){
-    // get fields from interface
-    this.HEIGHT = Page.HEIGHT;
-    this.WIDTH = Page.WIDTH;
 
     // get path from constructor
     this.imagePath = imPath;
@@ -108,7 +105,6 @@ public class ImagePage extends JPanel implements Page{
     }
   }
 
-
   private static BufferedImage resize(BufferedImage img, int height, int width) {
     // resizes BufferedImage
     // code from:
@@ -126,8 +122,11 @@ public class ImagePage extends JPanel implements Page{
     return resized;
   }
 
-
   public void paintComponent(Graphics g){
+    Graphics2D g2 = (Graphics2D) g;
+    float thickness = 2;
+
+
     //Draw the page
     g.setColor(Color.WHITE);
     g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -144,14 +143,17 @@ public class ImagePage extends JPanel implements Page{
 
     for(Integer[] coordinate : this.coordinates){
       if(coordinate.length == 4){
-        g.setStroke(new BasicStroke(2));
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(new Color(70,130,180));
         g.drawRect(coordinate[0]+WIDTH/2-400/2,coordinate[1] + HEIGHT/2-400/2 + 40, coordinate[2], coordinate[3]);
-        
+
       }else if (coordinate.length == 8){
-        g.setStroke(new BasicStroke(2));
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(new Color(70,130,180));
         g.drawRect(coordinate[0]+WIDTH/2-400/2, coordinate[1] + HEIGHT/2-400/2 + 40 , coordinate[2], coordinate[3]);
 
-        g.setStroke(new BasicStroke(2));
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(new Color(70,130,180));
         g.drawRect(coordinate[4]+WIDTH/2-400/2, coordinate[5] + HEIGHT/2-400/2 + 40 , coordinate[6], coordinate[7]);
       }
     }
