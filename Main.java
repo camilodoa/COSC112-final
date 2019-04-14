@@ -26,7 +26,7 @@ public class Main extends Page{
     // Final image display page:
     // final image page declaration here
 
-    while(true){
+
       if (showGreeting == true){
         // Greeting page:
         GreetingPage greetingInstance = new GreetingPage();
@@ -37,11 +37,11 @@ public class Main extends Page{
       }else if(showImage == true){
         // Image edit page:
         ImagePage imageInstance = new ImagePage();
-        
+
         appPage.setContentPane(imageInstance);
         appPage.pack();
         appPage.setVisible(true);
       }
-    }
+
   }
 }
