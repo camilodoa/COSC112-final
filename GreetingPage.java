@@ -1,5 +1,5 @@
 
-import java.io.IOException; 
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javafx.stage.FileChooser;
 import javax.swing.*;
@@ -11,27 +11,27 @@ import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class GreetingPage extends JPanel implements Page { //ActionListener
+public class GreetingPage extends Page { //ActionListener
   private static int HEIGHT;
   private static int WIDTH;
   //private BufferedImage titleImage;
 
   public GreetingPage(){
-    
+
     // Get fields from interface
     this.HEIGHT = Page.HEIGHT;
     this.WIDTH = Page.WIDTH;
 
     // Set screen size
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-   
+
     // title image
     /*
     try {
       titleImage = ImageIO.read(this.getClass().getResourceAsStream("images/FaceDisorter.jpg"));
     } catch (IOException e) {
       e.printStackTrace();
-    } 
+    }
     */
 
   }
@@ -53,9 +53,9 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
     g.setColor(Color.WHITE);
     int x_text = 100;
     int y_text = 100;
-    g.drawString("Welcome to the Face Distorter 2000 program.",x_text,y_text); 
+    g.drawString("Welcome to the Face Distorter 2000 program.",x_text,y_text);
     g.drawString("You will first be prompted to upload an image that includes a face.",x_text,y_text+20);
-    g.drawString("Then, you will be asked to identify the location of the face,",x_text,y_text+40); 
+    g.drawString("Then, you will be asked to identify the location of the face,",x_text,y_text+40);
     g.drawString("as well as eyes and mouth, using your mouse or trackpad.",x_text,y_text+60);
     g.drawString("Afterwards, you will be able to distort the face via a number of selections.",x_text,y_text+80);
     g.drawString("You will then be provided with the distorted image and options to save.",x_text,y_text+100);
@@ -64,7 +64,7 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
     g.setColor(new Color(124,252,0));
     g.drawString("To get started, click on the button to upload an image.",x_text,y_text+120);
 
-  }    
+  }
 
   public static void main(String[] args) {
 
@@ -74,7 +74,7 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
     welcome.setContentPane(new GreetingPage());
     welcome.pack();
     welcome.setVisible(true);
-  
+
     // Add a button
     JButton b = new JButton("Select .jpg");
     b.setBounds(100, 400, 100, 50);
@@ -82,7 +82,7 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
 
     // Declare the file chooser and file
     JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-    
+
     // When ready, use the filters so that the user can ONLY upload a .jpg
     //FileNameExtensionFilter filter = new FileNameExtensionFilter("jpg");
     //fc.setFileFilter(filter);
@@ -91,7 +91,7 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
   b.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-      System.out.println("clicked");  
+      System.out.println("clicked");
 
       int returnValue = fc.showSaveDialog(null);
 
@@ -100,9 +100,9 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
         String fileToPass = selectedFile.getPath();
         System.out.println(fileToPass);
         System.out.println(selectedFile.getName());
-        
+
       }
-    }       
+    }
       });
   }
 

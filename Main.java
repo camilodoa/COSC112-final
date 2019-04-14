@@ -12,6 +12,7 @@ import java.awt.GradientPaint;
 
 public class Main extends Page{
 
+
   public Main(){
 
   }
@@ -21,12 +22,15 @@ public class Main extends Page{
     System.out.println("app time");
 
     JFrame appPage = new JFrame("DistortMe App");
+    while(true){
+      
+    }
 
     // Greeting page:
     // greeting page declaration here
 
     // Image edit page:
-    String imPath = "./images/julian.jpg"; //would get this from a GreetingPage method
+    String imPath = "./images/profile1.jpg"; //would get this from a GreetingPage method
     ImagePage imageInstance = new ImagePage(imPath);
 
     // Final image display page:
