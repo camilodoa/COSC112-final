@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Dimension;
@@ -8,15 +9,28 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.RenderingHints;
 import java.awt.GradientPaint;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException; 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import java.awt.event.*;
+import javafx.stage.FileChooser;
+import javax.swing.JButton;
 
-public class GreetingPage extends JPanel implements Page{
+// WHAT YOU NEED TO STILL IMPLEMENT:
+// 1. Ability to click on a button (MouseListener), which opens up file browser
+// 2. Select a file, which will be passed on to the next step
+
+
+public class GreetingPage extends JPanel implements Page { //ActionListener
   private static int HEIGHT;
   private static int WIDTH;
-  private BufferedImage titleImage;
+  //private BufferedImage titleImage;
+
+  //private final JFileChooser fc = new JFileChooser();
+  
+
 
   public GreetingPage(){
     // get fields from interface
@@ -26,12 +40,15 @@ public class GreetingPage extends JPanel implements Page{
     // set screen size
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
+    /* 
     // title image
     try {
-      titleImage = ImageIO.read(getClass().getResourceAsStream("/images/FaceDisorter.jpg"));
+      titleImage = ImageIO.read(this.getClass().getResourceAsStream("images/FaceDisorter.jpg"));
     } catch (IOException e) {
       e.printStackTrace();
     }
+    */
+
   }
 
   @Override
@@ -43,13 +60,9 @@ public class GreetingPage extends JPanel implements Page{
     g.fillRect(0,0,WIDTH,HEIGHT);
 
     // write title
-    g.drawImage(titleImage, 50, 50, null);
-
-    // make button
-    g.setColor(new Color(124,252,0));
-    boolean unclicked = true;
-    g.draw3DRect(WIDTH/2,HEIGHT-300,300,150, unclicked);
-    //g.fillOval(WIDTH/2,HEIGHT-300,200,200);
+    //g.drawImage(titleImage, 50, 50, 100, 100, null);
+    g.setColor(Color.WHITE);
+    g.drawString("FACE DISTORER 2000",50,50);
 
     // make description
     g.setColor(Color.WHITE);
@@ -64,7 +77,7 @@ public class GreetingPage extends JPanel implements Page{
 
     // first instructions
     g.setColor(new Color(124,252,0));
-    g.drawString("To get started, click on the big green button to upload an image.",x_text,y_text+120);
+    g.drawString("To get started, click on the button to upload an image.",x_text,y_text+120);
 
   }    
 
@@ -74,6 +87,25 @@ public class GreetingPage extends JPanel implements Page{
     welcome.setContentPane(new GreetingPage());
     welcome.pack();
     welcome.setVisible(true);
+
+    JButton b = new JButton("Select .jpg");
+    b.setBounds(100, 100, 50, 50);
+    welcome.add(b);
+
+    ActionListener a = new ActionListener();
+    b.addActionListener(a);
+
+    
+    // JFileChooser fc = new JFileChooser();
+    // IF (event 'clicked button' occurs) { 
+    //    fc.showOpenDialog(FileChooserDEMO.this);
+    //    File jpg = fc.getSelectedFile();
+    //  
+    //}
+
+
+    //int i = fc.showOpenDialog(welcome);
+
   }
 
 }
