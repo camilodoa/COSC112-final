@@ -91,8 +91,8 @@ public class GreetingPage extends JPanel implements Page { //ActionListener
     b.setBounds(100, 100, 50, 50);
     welcome.add(b);
 
-    ActionListener a = new ActionListener();
-    b.addActionListener(a);
+    //ActionListener a = new ActionListener();
+    //b.addActionListener(a);
 
     
     // JFileChooser fc = new JFileChooser();

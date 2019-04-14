@@ -10,6 +10,12 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
+import java.lang.Process;
+import javax.tools.JavaCompiler;
+import javax.tools.ToolProvider;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 public class ImagePage extends JPanel implements Page{
@@ -48,10 +54,46 @@ public class ImagePage extends JPanel implements Page{
     //make a header
     this.headerFont = new Font("SansSerif", Font.BOLD, 30);
 
+    //run python analysis
+    this.runPython();
+
+    this.readPython();
+
   }
 
 
   // HELPER METHODS
+  private void runPython(){
+    String command = "python3 faceRecog.py " + imagePath;
+    try{
+      Process p = Runtime.getRuntime().exec(command);
+      System.out.println("ran process p");
+    }catch(IOException ioe){
+      ioe.printStackTrace();
+    }
+  }
+
+  private void readPython(){
+    try{
+      Scanner sc = new Scanner(new File("picData.txt"));
+      //first count the lines so we know how big our file is
+
+      System.out.println("lines are " + lines);
+      String finalString = "";
+      while(sc.hasNextLine()){
+        String toAdd = sc.nextLine();
+        System.out.println(toAdd);
+        finalString += toAdd;
+      }
+      System.out.println(finalString);
+    }
+    catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+
   private static BufferedImage resize(BufferedImage img, int height, int width) {
     // resizes BufferedImage
     // code from:
@@ -80,7 +122,7 @@ public class ImagePage extends JPanel implements Page{
 
     g.setColor(Color.WHITE);
     g.setFont(headerFont);
-    g.drawString("DistortMe!", WIDTH/2-80, 50);
+    g.drawString("~DistortMe~", WIDTH/2-80, 50);
 
 
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
