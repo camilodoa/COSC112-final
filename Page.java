@@ -21,4 +21,8 @@ public class Page extends JPanel{
     showFinalImage = false;
     showGreeting = true;
   }
+
+  static void setImagePath(String s){
+    imagePath = s;
+  }
 }

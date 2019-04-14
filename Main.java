@@ -26,22 +26,27 @@ public class Main extends Page{
     // Final image display page:
     // final image page declaration here
 
+    // Greeting page:
+    GreetingPage greetingInstance = new GreetingPage();
 
-      if (showGreeting == true){
-        // Greeting page:
-        GreetingPage greetingInstance = new GreetingPage();
+    appPage.setContentPane(greetingInstance);
+    appPage.pack();
+    appPage.setVisible(true);
 
-        appPage.setContentPane(greetingInstance);
-        appPage.pack();
-        appPage.setVisible(true);
-      }else if(showImage == true){
-        // Image edit page:
-        ImagePage imageInstance = new ImagePage();
-
-        appPage.setContentPane(imageInstance);
-        appPage.pack();
-        appPage.setVisible(true);
+    while(showImage!= true){
+      try{
+        Thread.sleep(1000);
+      }catch (Exception e) {
+        e.printStackTrace();
       }
+    }
+
+    // Image edit page:
+    ImagePage imageInstance = new ImagePage();
+
+    appPage.setContentPane(imageInstance);
+    appPage.pack();
+    appPage.setVisible(true);
 
   }
 }
