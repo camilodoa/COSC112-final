@@ -22,25 +22,26 @@ public class Main extends Page{
     System.out.println("app time");
 
     JFrame appPage = new JFrame("DistortMe App");
-    while(true){
-      
-    }
-
-    // Greeting page:
-    // greeting page declaration here
-
-    // Image edit page:
-    String imPath = "./images/profile1.jpg"; //would get this from a GreetingPage method
-    ImagePage imageInstance = new ImagePage(imPath);
 
     // Final image display page:
     // final image page declaration here
 
-    //appPage.setContentPane();
+    while(true){
+      if (showGreeting == true){
+        // Greeting page:
+        GreetingPage greetingInstance = new GreetingPage();
 
-    appPage.setContentPane(imageInstance);
-    appPage.pack();
-    appPage.setVisible(true);
-
+        appPage.setContentPane(greetingInstance);
+        appPage.pack();
+        appPage.setVisible(true);
+      }else if(showImage == true){
+        // Image edit page:
+        ImagePage imageInstance = new ImagePage();
+        
+        appPage.setContentPane(imageInstance);
+        appPage.pack();
+        appPage.setVisible(true);
+      }
+    }
   }
 }

@@ -1,12 +1,10 @@
 
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javafx.stage.FileChooser;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javafx.stage.FileChooser;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import javax.swing.filechooser.FileNameExtensionFilter;

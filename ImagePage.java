@@ -24,7 +24,7 @@ import java.awt.event.*;
 import javax.swing.JButton;
 
 
-public class ImagePage extends  Page{
+public class ImagePage extends Page{
   //FIELDS
 
   private String imagePath;
@@ -35,10 +35,7 @@ public class ImagePage extends  Page{
 
 
   // CONSTRUCTOR
-  public ImagePage(String imPath){
-
-    // get path from constructor
-    this.imagePath = imPath;
+  public ImagePage(){
 
     //get a BufferedImage from the image
     try{
