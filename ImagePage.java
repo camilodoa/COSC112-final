@@ -100,13 +100,6 @@ public class ImagePage extends JPanel implements Page{
       }
       sc.close();
 
-      for(Integer[] list: toReturn){
-        for(Integer i : list){
-          System.out.println(i);
-        }
-        System.out.println("length: "+ list.length +  "\n");
-      }
-
       return toReturn;
     }
     catch (Exception e) {
@@ -151,9 +144,14 @@ public class ImagePage extends JPanel implements Page{
 
     for(Integer[] coordinate : this.coordinates){
       if(coordinate.length == 4){
+        g.setStroke(new BasicStroke(2));
         g.drawRect(coordinate[0]+WIDTH/2-400/2,coordinate[1] + HEIGHT/2-400/2 + 40, coordinate[2], coordinate[3]);
+        
       }else if (coordinate.length == 8){
+        g.setStroke(new BasicStroke(2));
         g.drawRect(coordinate[0]+WIDTH/2-400/2, coordinate[1] + HEIGHT/2-400/2 + 40 , coordinate[2], coordinate[3]);
+
+        g.setStroke(new BasicStroke(2));
         g.drawRect(coordinate[4]+WIDTH/2-400/2, coordinate[5] + HEIGHT/2-400/2 + 40 , coordinate[6], coordinate[7]);
       }
     }

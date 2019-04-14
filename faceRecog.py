@@ -39,9 +39,9 @@ faces = faceCascade.detectMultiScale(
 
 facePoints = [] #toReturn
 
-print ( "Found {0} faces!".format(len(faces)) )
+# print ( "Found {0} faces!".format(len(faces)) )
 
-i = 0
+
 # Draw a rectangle around the faces
 for x, y, w, h in faces:
     cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -65,7 +65,7 @@ for x, y, w, h in faces:
         if j == 2:
             toAppend.append(toAppendtotoAppend)
             break
-    i += 1
+
     facePoints.append(toAppend)
 
 
