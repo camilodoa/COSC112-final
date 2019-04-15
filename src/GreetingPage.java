@@ -10,15 +10,10 @@ import java.io.File;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GreetingPage extends Page {
-  private static int HEIGHT;
-  private static int WIDTH;
+
   //private BufferedImage titleImage;
 
   public GreetingPage(){
-
-    // Get fields from interface
-    this.HEIGHT = Page.HEIGHT;
-    this.WIDTH = Page.WIDTH;
 
     // Set screen size
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -58,8 +53,8 @@ public class GreetingPage extends Page {
     // Make description
     Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
     g.setFont(descriptionFont);
-    g.setColor(Color.BLUE);
-    int x_text = WIDTH/4+50;
+    g.setColor(Color.BLACK);
+    int x_text = WIDTH/4;
     int y_text = HEIGHT/4;
     g.drawString("Welcome to the Face Distorter 2000 program!",x_text,y_text);
     g.drawString("Click the button below to select a profile picture - square images work best",x_text,y_text+40);
@@ -69,14 +64,17 @@ public class GreetingPage extends Page {
     g.drawString("and save the distorted image!",x_text,y_text+180);
 
     // First instructions
-    g.setColor(new Color(124,252,0));
+    g.setColor(headerColor);
     g.drawString("To get started, click the button below:",x_text,y_text+220);
 
     // Make button
-    JButton loading = new JButton("Loading...");
-    loading.setBounds(WIDTH/2-100, HEIGHT - HEIGHT/4 - 25, 160, 40);
     JButton start = new JButton("Select your image");
-    start.setBounds(WIDTH/2-100, HEIGHT - HEIGHT/4 - 25, 160, 40);
+    start.setOpaque(false);
+    start.setContentAreaFilled(false);
+    start.setBorderPainted(false);
+    start.setForeground(headerColor);
+    start.setFont(new Font("SansSerif", Font.PLAIN, 15));
+    start.setBounds(WIDTH/2-100, HEIGHT - HEIGHT/4 - 25, 200, 40);
     add(start);
 
     JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -93,13 +91,7 @@ public class GreetingPage extends Page {
           File selectedFile = fc.getSelectedFile();
           String fileToPass = selectedFile.getPath();
 
-          JButton loading = new JButton("Loading...");
-          loading.setBounds(WIDTH/2-100, HEIGHT - HEIGHT/4 - 25, 160, 40);
-          add(loading);
-          repaint();
-
           setImagePath(fileToPass);
-
 
           showGreetingToImage(); //changes pages
         }

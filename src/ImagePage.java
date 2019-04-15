@@ -36,7 +36,8 @@ public class ImagePage extends Page{
   private BufferedImage profile;
   private Font headerFont;
   private Color headerColor = new Color(0,0,255);
-  private Vector<Integer[]> coordinates;
+  private static Vector<Integer[]> coordinates;
+  private boolean firstRender = true;
 
 
   // CONSTRUCTOR
@@ -70,21 +71,21 @@ public class ImagePage extends Page{
 
 
   // HELPER METHODS
-  private void runPython(){
+  private static void runPython(){
     String command = "python3 faceRecog.py " + "../data/profile.png";
     try{
       Process p = Runtime.getRuntime().exec(command);
 
       p.waitFor();
 
-      this.coordinates = readPython();
+      coordinates = readPython();
 
     }catch(IOException | InterruptedException e){
       System.out.println(e);
     }
   }
 
-  private Vector<Integer[]> readPython(){
+  private static Vector<Integer[]> readPython(){
     try{
 
       Scanner sc = new Scanner(new File("../data/picData.txt"));
@@ -126,9 +127,31 @@ public class ImagePage extends Page{
     return resized;
   }
 
-  public void paintComponent(Graphics g){
+  private void paintFaceSquares(Graphics g){
     Graphics2D g2 = (Graphics2D) g;
     float thickness = 2;
+    System.out.println("going into for loop!");
+    for(Integer[] coordinate : coordinates){
+      System.out.print(coordinate[0]);
+      if(coordinate.length == 4){
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(headerColor);
+        g.drawRect(coordinate[0]+WIDTH/2-400/2,coordinate[1] + HEIGHT/2-400/2 + 40, coordinate[2], coordinate[3]);
+
+      }else if (coordinate.length == 8){
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(headerColor);
+        g.drawRect(coordinate[0]+WIDTH/2-400/2, coordinate[1] + HEIGHT/2-400/2 + 40 , coordinate[2], coordinate[3]);
+
+        g2.setStroke(new BasicStroke(thickness));
+        g.setColor(headerColor);
+        g.drawRect(coordinate[4]+WIDTH/2-400/2, coordinate[5] + HEIGHT/2-400/2 + 40 , coordinate[6], coordinate[7]);
+      }
+    }
+  }
+
+  public void paintComponent(Graphics g){
+
     JButton reselect = new JButton("Reselect");
     JButton next = new JButton("Distort");
 
@@ -145,24 +168,18 @@ public class ImagePage extends Page{
     g.drawString("Face Distorter 2000", WIDTH/2-150, 50);
 
     //Buttons
-    reselect.setBounds(WIDTH/4-150, HEIGHT/2, 80, 40);
-    add(reselect);
-    next.setBounds(WIDTH - WIDTH/4+50, HEIGHT/2, 80, 40);
-    add(next);
-
-    next.addActionListener(new ActionListener(){
-      @Override
-      public void actionPerformed(ActionEvent e){
-        imageToFinal();
-      }
-    });
-
-
+    reselect.setBounds(WIDTH/4-175, HEIGHT/2, 160, 40);
+    reselect.setOpaque(false);
+    reselect.setContentAreaFilled(false);
+    reselect.setBorderPainted(false);
+    reselect.setFont(new Font("SansSerif", Font.PLAIN, 20));
+    reselect.setForeground(headerColor);
     JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
     // Add an action listener
     reselect.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        System.out.println("going into actionlistener");
 
         int returnValue = fc.showSaveDialog(null);
 
@@ -179,7 +196,7 @@ public class ImagePage extends Page{
             //resize
             profile = resize(profile, 400, 400);
 
-            File outputfile = new File("profile.png");
+            File outputfile = new File("../data/profile.png");
 
             ImageIO.write(profile, "png", outputfile);
 
@@ -191,29 +208,35 @@ public class ImagePage extends Page{
           runPython();
 
           //re render
+          firstRender = true;
           repaint();
+          System.out.println("repainting");
           }
         }
       });
+    add(reselect);
+
+
+    next.setBounds(WIDTH - WIDTH/4 + 25, HEIGHT/2, 160, 40);
+    next.setOpaque(false);
+    next.setContentAreaFilled(false);
+    next.setBorderPainted(false);
+    next.setForeground(headerColor);
+    next.setFont(new Font("SansSerif", Font.PLAIN, 20));
+    next.addActionListener(new ActionListener(){
+      @Override
+      public void actionPerformed(ActionEvent e){
+        imageToFinal();
+      }
+    });
+    add(next);
 
 
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
 
-    for(Integer[] coordinate : this.coordinates){
-      if(coordinate.length == 4){
-        g2.setStroke(new BasicStroke(thickness));
-        g.setColor(new Color(70,130,180));
-        g.drawRect(coordinate[0]+WIDTH/2-400/2,coordinate[1] + HEIGHT/2-400/2 + 40, coordinate[2], coordinate[3]);
-
-      }else if (coordinate.length == 8){
-        g2.setStroke(new BasicStroke(thickness));
-        g.setColor(new Color(70,130,180));
-        g.drawRect(coordinate[0]+WIDTH/2-400/2, coordinate[1] + HEIGHT/2-400/2 + 40 , coordinate[2], coordinate[3]);
-
-        g2.setStroke(new BasicStroke(thickness));
-        g.setColor(new Color(70,130,180));
-        g.drawRect(coordinate[4]+WIDTH/2-400/2, coordinate[5] + HEIGHT/2-400/2 + 40 , coordinate[6], coordinate[7]);
-      }
+    if (firstRender == true){
+      firstRender = false;
+      paintFaceSquares(g);
     }
   }
 }
