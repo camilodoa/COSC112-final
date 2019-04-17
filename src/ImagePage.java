@@ -36,7 +36,6 @@ public class ImagePage extends Page{
   private BufferedImage profile;
   private Font headerFont;
   private Color headerColor = new Color(0,0,255);
-  private static Vector<Integer[]> coordinates;
   private boolean firstRender = true;
 
 

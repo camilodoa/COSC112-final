@@ -1,9 +1,12 @@
 import javax.swing.JPanel;
+import java.util.Vector;
+
 
 public class Page extends JPanel{
   static final int WIDTH=1024;
   static final int HEIGHT=580;
   static String imagePath;
+  static Vector<Integer[]> coordinates;
 
   static boolean showGreeting = true;
   static boolean showImage = false;

@@ -20,6 +20,7 @@ public class Main extends Page{
   public void run(){
     JFrame appPage = new JFrame("Face Distorter 2000");
     appPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    appPage.setResizable(false);
 
     // Final image display page:
     // final image page declaration here
@@ -54,8 +55,11 @@ public class Main extends Page{
       }
     }
 
-    //Initialize final page
-    System.out.println("got to final page");
+    FinalPage finalInstance = new FinalPage();
+    appPage.setContentPane(finalInstance);
+    appPage.pack();
+    appPage.setVisible(true);
+
   }
 
 
