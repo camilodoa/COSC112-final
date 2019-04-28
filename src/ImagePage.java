@@ -47,7 +47,7 @@ public class ImagePage extends Page{
       this.profile = ImageIO.read(new File(this.imagePath));
 
       //resize
-      profile = resize(profile, 400, 400);
+      profile = Page.resize(profile, 400, 400);
 
       File outputfile = new File("../data/profile.png");
 
@@ -109,29 +109,13 @@ public class ImagePage extends Page{
     }
   }
 
-  private static BufferedImage resize(BufferedImage img, int height, int width) {
-    // resizes BufferedImage
-    // code from:
-    // https://memorynotfound.com/java-resize-image-fixed-width-height-example/
-
-    Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-
-    BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
-    Graphics2D g2d = resized.createGraphics();
-
-    g2d.drawImage(tmp, 0, 0, null);
-    g2d.dispose();
-
-    return resized;
-  }
 
   private void paintFaceSquares(Graphics g){
     Graphics2D g2 = (Graphics2D) g;
     float thickness = 2;
-    System.out.println("going into for loop!");
+
     for(Integer[] coordinate : coordinates){
-      System.out.print(coordinate[0]);
+
       if(coordinate.length == 4){
         g2.setStroke(new BasicStroke(thickness));
         g.setColor(headerColor);
@@ -193,7 +177,7 @@ public class ImagePage extends Page{
             profile = ImageIO.read(new File(imagePath));
 
             //resize
-            profile = resize(profile, 400, 400);
+            profile = Page.resize(profile, 400, 400);
 
             File outputfile = new File("../data/profile.png");
 
@@ -232,6 +216,15 @@ public class ImagePage extends Page{
 
 
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
+
+    if(coordinates.isEmpty()){ //to tell user to reselect if there are no faces
+      Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
+      g.setFont(descriptionFont);
+      g.setColor(headerColor);
+      g.drawString("No faces were found",WIDTH/4-170,HEIGHT/2-70);
+      g.drawString("Select another image!",WIDTH/4-170,HEIGHT/2-50);
+
+    }
 
     if (firstRender == true){
       firstRender = false;

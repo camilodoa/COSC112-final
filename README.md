@@ -1,5 +1,7 @@
 # COSC112-final
 
+<iframe src='https://gfycat.com/ifr/AcclaimedSerpentineFirefly' frameborder='0' scrolling='no' allowfullscreen width='640' height='418'></iframe>
+
 Our final project for Amherst College's S2019 COSC-112 course.
 
 This program takes in the user's picture/profile and distorts it in a number of selectable ways.

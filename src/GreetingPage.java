@@ -91,6 +91,17 @@ public class GreetingPage extends Page {
           File selectedFile = fc.getSelectedFile();
           String fileToPass = selectedFile.getPath();
 
+          JButton loading = new JButton("Finding faces...");
+          loading.setOpaque(true);
+          loading.setContentAreaFilled(true);
+          loading.setBorderPainted(false);
+          loading.setBackground(Color.white);
+          loading.setForeground(headerColor);
+          loading.setFont(new Font("SansSerif", Font.PLAIN, 15));
+          loading.setBounds(WIDTH/2-100, HEIGHT - HEIGHT/4+10, 200, 40);
+          add(loading);
+
+
           setImagePath(fileToPass);
 
           showGreetingToImage(); //changes pages
