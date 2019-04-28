@@ -1,6 +1,8 @@
 # COSC112-final
 
-<iframe src='https://gfycat.com/ifr/AcclaimedSerpentineFirefly' frameborder='0' scrolling='no' allowfullscreen width='640' height='418'/>
+<img src='https://thumbs.gfycat.com/AcclaimedSerpentineFirefly-small.gif' frameborder='0' scrolling='no' allowfullscreen width='640' height='418'/>
+
+
 
 Our final project for Amherst College's S2019 COSC-112 course.
 
