@@ -14,7 +14,9 @@ profile -> *weird* profile
  * Make sure you have Python 3.65
   * *Make sure the python3 command calls the Python 3.65 interpreter*
  * Install OpenCV `pip3 install opencv-python`
+ * Install Python's Pillow library `python3 -m pip install Pillow`
  * Install main and contrib OpenCV modules `pip3 install opencv-contrib-python`
+
 
 
 ## To Run:

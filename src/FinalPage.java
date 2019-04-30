@@ -37,27 +37,25 @@ public class FinalPage extends Page{
     need a method that reads in imageToEdit, changes it, and displays it
   */
 
-  private void rotate() throws Exception{
+  private void airHead() throws Exception{
     BufferedImage toEdit = ImageIO.read(new File(imageToEdit));
 
     AffineTransform rotateCranium = new AffineTransform();
 
-    // for(Integer[] coordinate : this.coordinates){
-    //   rotateCranium.rotate(Math.PI/2, coordinate[]);
-    // }
+
   }
 
-  private BufferedImage lazer(Graphics g, BufferedImage toEdit) throws Exception{
+  private BufferedImage lazer(BufferedImage toEdit) throws Exception{
     BufferedImage lazerEyes = ImageIO.read(new File("../data/lens-flare.png"));
     Graphics gImage = toEdit.createGraphics();
 
 
     for(Integer[] c : coordinates){
       if(c.length == 8){
-        BufferedImage resized = Page.resize(lazerEyes, 120, 120);
-        gImage.drawImage(resized, c[0]+c[2]/2 - 60, c[1]+c[3]/2 - 60, null);
+        BufferedImage resized = Page.resize(lazerEyes, 160, 160);
+        gImage.drawImage(resized, c[0]+c[2]/2 - 80, c[1]+c[3]/2 - 80, null);
 
-        gImage.drawImage(resized, c[4]+c[6]/2 - 60, c[5]+c[7]/2 - 60, null);
+        gImage.drawImage(resized, c[4]+c[6]/2 - 80, c[5]+c[7]/2 - 80, null);
       }
     }
     return toEdit;
@@ -122,25 +120,7 @@ public class FinalPage extends Page{
       @Override
       public void actionPerformed(ActionEvent e) {
 
-        try{
-          BufferedImage profile = ImageIO.read(new File(imageToEdit));
-
-          BufferedImage deepFried = deepFry(profile);
-
-          // BufferedImage superDeepFried = deepFry(deepFried);
-
-          BufferedImage lazed = lazer(g, deepFried);
-
-          RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
-
-          rescaleOp.filter(lazed, lazed);
-
-          ImageIO.write(lazed, "png", new File("../data/profileToEdit.png"));
-
-          repaint();
-        }catch(Exception exp){
-          exp.printStackTrace();
-        }
+        System.out.println("clicked!");
       }
     });
 
@@ -165,9 +145,7 @@ public class FinalPage extends Page{
 
           BufferedImage deepFried = deepFry(profile);
 
-          // BufferedImage superDeepFried = deepFry(deepFried);
-
-          BufferedImage lazed = lazer(g, deepFried);
+          BufferedImage lazed = lazer(deepFried);
 
           RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
 
@@ -204,7 +182,7 @@ public class FinalPage extends Page{
 
           BufferedImage superDeepFried = deepFry(deepFried);
 
-          BufferedImage lazed = lazer(g, superDeepFried);
+          BufferedImage lazed = lazer(superDeepFried);
 
           RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
 

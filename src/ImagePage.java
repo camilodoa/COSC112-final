@@ -217,14 +217,15 @@ public class ImagePage extends Page{
 
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
 
-    if(coordinates.isEmpty()){ //to tell user to reselect if there are no faces
-      Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
-      g.setFont(descriptionFont);
-      g.setColor(headerColor);
-      g.drawString("No faces were found",WIDTH/4-170,HEIGHT/2-70);
-      g.drawString("Select another image!",WIDTH/4-170,HEIGHT/2-50);
 
-    }
+      if(coordinates.isEmpty()){ //to tell user to reselect if there are no faces
+        Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
+        g.setFont(descriptionFont);
+        g.setColor(headerColor);
+        g.drawString("No faces were found",WIDTH/4-170,HEIGHT/2-80);
+        g.drawString("Select another image!",WIDTH/4-170,HEIGHT/2-60);
+
+      }
 
     if (firstRender == true){
       firstRender = false;
