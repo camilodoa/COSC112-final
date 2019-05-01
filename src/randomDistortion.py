@@ -47,6 +47,8 @@ def distort_grid(org_grid, max_shift):
     y_min = np.min(new_grid[:, :, 1])
     x_max = np.max(new_grid[:, :, 0])
     y_max = np.max(new_grid[:, :, 1])
+
+    #here come that random:
     new_grid += np.random.randint(- max_shift, max_shift + 1, new_grid.shape)
     new_grid[:, :, 0] = np.maximum(x_min, new_grid[:, :, 0])
     new_grid[:, :, 1] = np.maximum(y_min, new_grid[:, :, 1])
@@ -76,4 +78,4 @@ dst_grid = griddify(shape_to_rect(im.size), 4, 4)
 src_grid = distort_grid(dst_grid, 50)
 mesh = grid_to_mesh(src_grid, dst_grid)
 im = im.transform(im.size, Image.MESH, mesh)
-im.show()
+im.save('../data/profileToEdit.png')

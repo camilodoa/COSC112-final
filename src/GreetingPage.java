@@ -1,4 +1,4 @@
-
+//imports=======================================================================
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -8,39 +8,27 @@ import java.awt.event.ActionListener;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import javax.swing.filechooser.FileNameExtensionFilter;
+//imports=======================================================================
+
 
 public class GreetingPage extends Page {
 
-  //private BufferedImage titleImage;
-
+  //constructor
   public GreetingPage(){
-
     // Set screen size
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
-    // title image
-    /*
-    try {
-      titleImage = ImageIO.read(this.getClass().getResourceAsStream("images/FaceDisorter.jpg"));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    */
-
   }
 
+  //methods
   @Override
-  public void paintComponent(Graphics g){
+  public void paintComponent(Graphics g){//=====================================
     super.paintComponent(g);
 
     // Set background color
-    // g.setColor(new Color(25,25,112));
     g.setColor(Color.WHITE);
     g.fillRect(0,0,WIDTH,HEIGHT);
 
-
-    // Write title
-    //g.drawImage(titleImage, 50, 50, 100, 100, null);
+    // Title and header
     Color headerColor = new Color(0,0,255);
     Font headerFont = new Font("SansSerif", Font.BOLD, 30);
     g.setColor(headerColor);
@@ -50,7 +38,7 @@ public class GreetingPage extends Page {
     g.drawString("Face Distorter 2000", WIDTH/2-150, 50);
 
 
-    // Make description
+    // Front page description
     Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
     g.setFont(descriptionFont);
     g.setColor(Color.BLACK);
@@ -62,12 +50,11 @@ public class GreetingPage extends Page {
     g.drawString("If your image was too complicated for it to identify, you can always reselect an image",x_text,y_text+120);
     g.drawString("Afterwards, you can distort the faces the program found in a number of ways",x_text,y_text+160);
     g.drawString("and save the distorted image!",x_text,y_text+180);
-
-    // First instructions
     g.setColor(headerColor);
     g.drawString("To get started, click the button below:",x_text,y_text+220);
 
-    // Make button
+
+    // Select image button
     JButton start = new JButton("Select your image");
     start.setOpaque(false);
     start.setContentAreaFilled(false);
@@ -77,13 +64,12 @@ public class GreetingPage extends Page {
     start.setBounds(WIDTH/2-100, HEIGHT - HEIGHT/4 - 25, 200, 40);
     add(start);
 
-    JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
     // Add an action listener
     start.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // System.out.println("clicked");
+        JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
         int returnValue = fc.showSaveDialog(null);
 
@@ -104,12 +90,14 @@ public class GreetingPage extends Page {
 
           setImagePath(fileToPass);
 
-          showGreetingToImage(); //changes pages
+          showGreetingToImage(); //changes pages to ImagePage
         }
       }
     });
-  }
+  }//paintComponent()===========================================================
 
+
+//delete everything under this line=============================================
   public static void main(String[] args) {
 
     // Set the frame
@@ -154,7 +142,4 @@ public class GreetingPage extends Page {
 
       */
   }
-
-  // Implement more here to pass the image on to the next stage of the App
-  // selectedFile is a jpg that can now be passed on
 }

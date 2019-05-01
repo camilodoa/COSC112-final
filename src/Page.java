@@ -5,6 +5,7 @@ import java.awt.*;
 
 
 public class Page extends JPanel{
+  //fields
   static final int WIDTH=1024;
   static final int HEIGHT=580;
   static String imagePath;
@@ -15,6 +16,7 @@ public class Page extends JPanel{
   static boolean showFinalImage = false;
   static boolean loading = false;
 
+  //page state methods
   static void showGreetingToImage(){
     showGreeting = false;
     showImage = true;
@@ -28,10 +30,11 @@ public class Page extends JPanel{
     showGreeting = true;
   }
 
+  //helper methods
   static void setImagePath(String s){
     imagePath = s;
   }
-
+  
   static BufferedImage resize(BufferedImage img, int height, int width) {
     // resizes BufferedImage
     // code from:

@@ -1,35 +1,24 @@
+//imports=======================================================================
 import java.awt.*;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
-import java.awt.Font;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import javax.swing.border.TitledBorder;
-import java.awt.Color;
 import java.lang.Process;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Vector;
 import java.lang.Thread;
 import java.util.Arrays;
-import java.awt.BasicStroke;
-import java.awt.event.*;
 import javax.swing.JButton;
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.filechooser.FileSystemView;
-import java.io.File;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+//imports=======================================================================
 
 public class ImagePage extends Page{
   //FIELDS
@@ -42,13 +31,14 @@ public class ImagePage extends Page{
   // CONSTRUCTOR
   public ImagePage(){
 
-    //get a BufferedImage from the image
+    //get a BufferedImage from the selected image
     try{
       this.profile = ImageIO.read(new File(this.imagePath));
 
       //resize
       profile = Page.resize(profile, 400, 400);
 
+      //copy resized image to data folder
       File outputfile = new File("../data/profile.png");
 
       ImageIO.write(profile, "png", outputfile);
@@ -60,7 +50,7 @@ public class ImagePage extends Page{
     // set screen size
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-    //make a header
+    //headerfont
     this.headerFont = new Font("SansSerif", Font.BOLD, 30);
 
     //run python analysis
@@ -70,7 +60,12 @@ public class ImagePage extends Page{
 
 
   // HELPER METHODS
-  private static void runPython(){
+  private static void runPython(){//============================================
+    /*
+      runPython() calls the facial recognition python program, reads the file it
+      writes to the data folder, and updates a static variable based on what it
+      read
+    */
     String command = "python3 faceRecog.py " + "../data/profile.png";
     try{
       Process p = Runtime.getRuntime().exec(command);
@@ -82,11 +77,14 @@ public class ImagePage extends Page{
     }catch(IOException | InterruptedException e){
       System.out.println(e);
     }
-  }
+  }//runPython()================================================================
 
-  private static Vector<Integer[]> readPython(){
+  private static Vector<Integer[]> readPython(){//==============================
+    /*
+      readPython() reads the file the facial recognition program wrote and
+      returns a vector of the parsed file's contents
+    */
     try{
-
       Scanner sc = new Scanner(new File("../data/picData.txt"));
       //first count the lines so we know how big our file is
       Vector<Integer[]> toReturn = new Vector<Integer[]>();
@@ -107,10 +105,14 @@ public class ImagePage extends Page{
       e.printStackTrace();
       return null;
     }
-  }
+  }//readPython()===============================================================
 
 
-  private void paintFaceSquares(Graphics g){
+  private void paintFaceSquares(Graphics g){//==================================
+    /*
+      paintFaceSquares() goes through the Vector<> coordinates and draws a rectangle
+      around each face and each eye it found
+    */
     Graphics2D g2 = (Graphics2D) g;
     float thickness = 2;
 
@@ -131,10 +133,11 @@ public class ImagePage extends Page{
         g.drawRect(coordinate[4]+WIDTH/2-400/2, coordinate[5] + HEIGHT/2-400/2 + 40 , coordinate[6], coordinate[7]);
       }
     }
-  }
+  }//paintFaceSquares()=========================================================
 
-  public void paintComponent(Graphics g){
 
+  public void paintComponent(Graphics g){//=====================================
+    //buttons
     JButton reselect = new JButton("Reselect");
     JButton next = new JButton("Distort");
 
@@ -150,7 +153,8 @@ public class ImagePage extends Page{
     g.setFont(headerFont);
     g.drawString("Face Distorter 2000", WIDTH/2-150, 50);
 
-    //Buttons
+
+    //reselect button
     reselect.setBounds(WIDTH/4-175, HEIGHT/2, 160, 40);
     reselect.setOpaque(false);
     reselect.setContentAreaFilled(false);
@@ -162,8 +166,6 @@ public class ImagePage extends Page{
     reselect.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("going into actionlistener");
-
         int returnValue = fc.showSaveDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -193,13 +195,13 @@ public class ImagePage extends Page{
           //re render
           firstRender = true;
           repaint();
-          System.out.println("repainting");
           }
         }
       });
     add(reselect);
+    
 
-
+    //next page button
     next.setBounds(WIDTH - WIDTH/4 + 25, HEIGHT/2, 160, 40);
     next.setOpaque(false);
     next.setContentAreaFilled(false);
@@ -214,22 +216,24 @@ public class ImagePage extends Page{
     });
     add(next);
 
-
+    //profile
     g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
 
 
-      if(coordinates.isEmpty()){ //to tell user to reselect if there are no faces
-        Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
-        g.setFont(descriptionFont);
-        g.setColor(headerColor);
-        g.drawString("No faces were found",WIDTH/4-170,HEIGHT/2-80);
-        g.drawString("Select another image!",WIDTH/4-170,HEIGHT/2-60);
+    //to tell the user if no faces were found
+    if(coordinates.isEmpty()){ //to tell user to reselect if there are no faces
+      Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
+      g.setFont(descriptionFont);
+      g.setColor(headerColor);
+      g.drawString("No faces were found",WIDTH/4-170,HEIGHT/2-70);
+      g.drawString("Select another image",WIDTH/4-170,HEIGHT/2-50);
 
-      }
+    }
 
+    //some logic to avoid buggy reloads
     if (firstRender == true){
       firstRender = false;
       paintFaceSquares(g);
     }
-  }
+  }//paintComponent()===========================================================
 }

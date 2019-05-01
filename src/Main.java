@@ -13,17 +13,11 @@ import java.awt.GradientPaint;
 public class Main extends Page{
 
 
-  public Main(){
-
-  }
-
-  public void run(){
+  public void run(){ //=========================================================
     JFrame appPage = new JFrame("Face Distorter 2000");
     appPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     appPage.setResizable(false);
 
-    // Final image display page:
-    // final image page declaration here
 
     // Greeting page:
     GreetingPage greetingInstance = new GreetingPage();
@@ -38,7 +32,7 @@ public class Main extends Page{
       }catch (Exception e) {
         e.printStackTrace();
       }
-    }
+    }//run()====================================================================
 
     // Image edit page:
     ImagePage imageInstance = new ImagePage();
@@ -59,13 +53,11 @@ public class Main extends Page{
     appPage.setContentPane(finalInstance);
     appPage.pack();
     appPage.setVisible(true);
-
   }
 
-
-  public static void main(String[] args){
+  public static void main(String[] args){//=====================================
     Main app = new Main();
     app.run();
-
   }
+  //Main()======================================================================
 }

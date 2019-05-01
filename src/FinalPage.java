@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.geom.AffineTransform;
@@ -6,18 +8,14 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.JButton;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.RescaleOp;
 
 
 public class FinalPage extends Page{
+  //fields
   private final String imageToEdit;
   private final String editedImage;
 
+  //constructor
   public FinalPage(){
     try{
       BufferedImage profileToEdit = ImageIO.read(new File("../data/profile.png")); //read existing file
@@ -33,19 +31,20 @@ public class FinalPage extends Page{
     this.setPreferredSize(new Dimension(this.WIDTH, this.HEIGHT));
   }
 
-  /*
-    need a method that reads in imageToEdit, changes it, and displays it
-  */
+  //methods
 
-  private void airHead() throws Exception{
+  //this one does nothing yet
+  private void airHead() throws Exception{//====================================
     BufferedImage toEdit = ImageIO.read(new File(imageToEdit));
 
     AffineTransform rotateCranium = new AffineTransform();
 
+  }//airHead()==================================================================
 
-  }
 
-  private BufferedImage lazer(BufferedImage toEdit) throws Exception{
+  private BufferedImage lazer(BufferedImage toEdit) throws Exception{//=========
+    //places lazers at eye coordinates
+
     BufferedImage lazerEyes = ImageIO.read(new File("../data/lens-flare.png"));
     Graphics gImage = toEdit.createGraphics();
 
@@ -59,9 +58,12 @@ public class FinalPage extends Page{
       }
     }
     return toEdit;
-  }
+  }//lazer()====================================================================
 
-  private BufferedImage deepFry(BufferedImage toEdit) throws Exception{
+
+  private BufferedImage deepFry(BufferedImage toEdit) throws Exception{//=======
+    //sharpens image
+
     // A 3x3 kernel that sharpens an image
     Kernel kernel = new Kernel(3, 3,new float[]{
             -1, -1, -1,
@@ -73,10 +75,25 @@ public class FinalPage extends Page{
     toEdit = op.filter(toEdit, null);
 
     return toEdit;
-  }
+  }//deepFry()==================================================================
 
 
-  public void paintComponent(Graphics g){
+  private static void runPython(){//============================================
+    //runs random distortion python script
+
+    String command = "python3 randomDistortion.py";
+    try{
+      Process p = Runtime.getRuntime().exec(command);
+
+      p.waitFor();
+
+    }catch(IOException | InterruptedException e){
+      System.out.println(e);
+    }
+  }//runPython()================================================================
+
+
+  public void paintComponent(Graphics g){//=====================================
     Font headerFont = new Font("SansSerif", Font.BOLD, 30);
     Color headerColor = new Color(0,0,255);
 
@@ -98,7 +115,8 @@ public class FinalPage extends Page{
     g.setColor(new Color(211,211,211));
     g.drawRect((WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, 400, 400);
 
-    //Unedited image
+
+    //display image
     try{
       BufferedImage profile = ImageIO.read(new File("../data/profileToEdit.png"));
       g.drawImage(profile, (WIDTH/2-400/2), (HEIGHT/2-400/2) + 40, this);
@@ -106,6 +124,7 @@ public class FinalPage extends Page{
     }catch(Exception e){
       e.printStackTrace();
     }
+
 
     //make a save button
     JButton save = new JButton("Save");
@@ -124,6 +143,24 @@ public class FinalPage extends Page{
       }
     });
 
+    //make a random button
+    JButton randomButton = new JButton("Random");
+    randomButton.setOpaque(false);
+    randomButton.setContentAreaFilled(false);
+    randomButton.setBorderPainted(false);
+    randomButton.setForeground(headerColor);
+    randomButton.setFont(new Font("SansSerif", Font.PLAIN, 15));
+    randomButton.setBounds(WIDTH/4-200, HEIGHT/2+50, 200, 40);
+    add(randomButton);
+    randomButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+        runPython();
+
+        repaint();
+      }
+    });
 
 
     // Make deep fry button
@@ -135,7 +172,6 @@ public class FinalPage extends Page{
     deepFry.setFont(new Font("SansSerif", Font.PLAIN, 15));
     deepFry.setBounds(WIDTH/4-200, HEIGHT/2-50, 200, 40);
     add(deepFry);
-    // Add an action listener
     deepFry.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -143,14 +179,17 @@ public class FinalPage extends Page{
         try{
           BufferedImage profile = ImageIO.read(new File(imageToEdit));
 
+          //sharpen
           BufferedImage deepFried = deepFry(profile);
 
+          //add lazer eyes
           BufferedImage lazed = lazer(deepFried);
 
           RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
 
           rescaleOp.filter(lazed, lazed);
 
+          //write to data file
           ImageIO.write(lazed, "png", new File("../data/profileToEdit.png"));
 
           repaint();
@@ -170,7 +209,6 @@ public class FinalPage extends Page{
     superDeepFry.setFont(new Font("SansSerif", Font.PLAIN, 15));
     superDeepFry.setBounds(WIDTH/4-200, HEIGHT/2, 200, 40);
     add(superDeepFry);
-    // Add an action listener
     superDeepFry.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -178,16 +216,20 @@ public class FinalPage extends Page{
         try{
           BufferedImage profile = ImageIO.read(new File(imageToEdit));
 
+          //sharpen
           BufferedImage deepFried = deepFry(profile);
 
+          //sharpen again
           BufferedImage superDeepFried = deepFry(deepFried);
 
+          //add lazer eyes
           BufferedImage lazed = lazer(superDeepFried);
 
           RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
 
           rescaleOp.filter(lazed, lazed);
 
+          //write to data
           ImageIO.write(lazed, "png", new File("../data/profileToEdit.png"));
 
           repaint();
@@ -196,5 +238,5 @@ public class FinalPage extends Page{
         }
       }
     });
-  }
+  }//paintComponent()===========================================================
 }
