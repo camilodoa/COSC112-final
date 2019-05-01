@@ -7,6 +7,7 @@
 Our final project for Amherst College's S2019 COSC-112 course.
 
 This program takes in the user's picture/profile and distorts it in a number of selectable ways.
+It uses a facial recognition back end in Python to help automate some distiortions.
 
 profile -> *weird* profile
 
