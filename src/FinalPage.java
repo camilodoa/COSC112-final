@@ -1,3 +1,7 @@
+//imports=======================================================================
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -8,6 +12,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.JButton;
+//imports=======================================================================
 
 
 public class FinalPage extends Page{
@@ -139,7 +144,28 @@ public class FinalPage extends Page{
       @Override
       public void actionPerformed(ActionEvent e) {
 
-        System.out.println("clicked!");
+        JFileChooser directoryChooser = new JFileChooser();
+        directoryChooser.setCurrentDirectory(new java.io.File("."));
+        directoryChooser.setDialogTitle("Save Image");
+        directoryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        directoryChooser.setAcceptAllFileFilterUsed(false);
+
+        if(directoryChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+          directoryChooser.getCurrentDirectory(); // this is the path where the file will be saved
+          System.out.println("Chosen directory: " + directoryChooser.getSelectedFile().getAbsolutePath());
+
+          try{
+            BufferedImage profile = ImageIO.read(new File("../data/profileToEdit.png"));
+
+            ImageIO.write(profile, "png", new File(directoryChooser.getSelectedFile().getAbsolutePath() + "/distortedProfile.png"));
+          }catch(IOException exp){
+            exp.printStackTrace();
+          }
+        }
+        else {
+          System.out.println("No directory selection");
+        }
       }
     });
 
