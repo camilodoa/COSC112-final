@@ -199,7 +199,7 @@ public class ImagePage extends Page{
         }
       });
     add(reselect);
-    
+
 
     //next page button
     next.setBounds(WIDTH - WIDTH/4 + 25, HEIGHT/2, 160, 40);
@@ -224,9 +224,9 @@ public class ImagePage extends Page{
     if(coordinates.isEmpty()){ //to tell user to reselect if there are no faces
       Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
       g.setFont(descriptionFont);
-      g.setColor(headerColor);
-      g.drawString("No faces were found",WIDTH/4-170,HEIGHT/2-70);
-      g.drawString("Select another image",WIDTH/4-170,HEIGHT/2-50);
+      g.setColor(Color.black);
+      g.drawString("No faces were found",WIDTH/4-170,HEIGHT/2-50);
+      g.drawString("Select another image",WIDTH/4-170,HEIGHT/2-30);
 
     }
 

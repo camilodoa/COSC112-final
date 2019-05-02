@@ -123,6 +123,11 @@ public class FinalPage extends Page{
     }
 
 
+      Font descriptionFont = new Font("SansSerif", Font.PLAIN, 15);
+      g.setFont(descriptionFont);
+      g.setColor(Color.black);
+      g.drawString("To save, select a folder",WIDTH-275,HEIGHT/2 - 20);
+
     //make a save button
     JButton save = new JButton("Save");
     save.setOpaque(false);
@@ -130,7 +135,7 @@ public class FinalPage extends Page{
     save.setBorderPainted(false);
     save.setForeground(headerColor);
     save.setFont(new Font("SansSerif", Font.PLAIN, 15));
-    save.setBounds(WIDTH-300, HEIGHT/2, 200, 40);
+    save.setBounds(WIDTH-285, HEIGHT/2, 200, 40);
     add(save);
     save.addActionListener(new ActionListener() {
       @Override
@@ -159,6 +164,7 @@ public class FinalPage extends Page{
         else {
           System.out.println("No directory selection");
         }
+
       }
     });
 

@@ -45,7 +45,7 @@ public class GreetingPage extends Page {
     int x_text = WIDTH/4;
     int y_text = HEIGHT/4;
     g.drawString("Welcome to the Face Distorter 2000 program!",x_text,y_text);
-    g.drawString("Click the button below to select a profile picture - square images work best",x_text,y_text+40);
+    g.drawString("Click the button below to select a profile picture - square images (.jpg, .png, .jpeg) work best",x_text,y_text+40);
     g.drawString("Our facial recognition back end will identify faces (and eyes)",x_text,y_text+80);
     g.drawString("If your image was too complicated for it to identify, you can always reselect an image",x_text,y_text+120);
     g.drawString("Afterwards, you can distort the faces the program found in a number of ways",x_text,y_text+160);
