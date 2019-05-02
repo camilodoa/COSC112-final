@@ -39,23 +39,23 @@ public class FinalPage extends Page{
   }
 
   //methods
-  private BufferedImage lazer(BufferedImage toEdit) throws Exception{//=========
-    //places lazers at eye coordinates
+  private BufferedImage laser(BufferedImage toEdit) throws Exception{//=========
+    //places lasers at eye coordinates
 
-    BufferedImage lazerEyes = ImageIO.read(new File("../data/lens-flare.png"));
+    BufferedImage laserEyes = ImageIO.read(new File("../data/lens-flare.png"));
     Graphics gImage = toEdit.createGraphics();
 
 
     for(Integer[] c : coordinates){
       if(c.length == 8){
-        BufferedImage resized = Page.resize(lazerEyes, 160, 160);
+        BufferedImage resized = Page.resize(laserEyes, 160, 160);
         gImage.drawImage(resized, c[0]+c[2]/2 - 80, c[1]+c[3]/2 - 80, null);
 
         gImage.drawImage(resized, c[4]+c[6]/2 - 80, c[5]+c[7]/2 - 80, null);
       }
     }
     return toEdit;
-  }//lazer()====================================================================
+  }//laser()====================================================================
 
 
   private BufferedImage deepFry(BufferedImage toEdit) throws Exception{//=======
@@ -207,15 +207,15 @@ public class FinalPage extends Page{
           //sharpen
           BufferedImage deepFried = deepFry(profile);
 
-          //add lazer eyes
-          BufferedImage lazed = lazer(deepFried);
+          //add laser eyes
+          BufferedImage lased = laser(deepFried);
 
           RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
 
-          rescaleOp.filter(lazed, lazed);
+          rescaleOp.filter(lased, lased);
 
           //write to data file
-          ImageIO.write(lazed, "png", new File("../data/profileToEdit.png"));
+          ImageIO.write(lased, "png", new File("../data/profileToEdit.png"));
 
           repaint();
         }catch(Exception exp){
@@ -247,15 +247,15 @@ public class FinalPage extends Page{
           //sharpen again
           BufferedImage superDeepFried = deepFry(deepFried);
 
-          //add lazer eyes
-          BufferedImage lazed = lazer(superDeepFried);
+          //add laser eyes
+          BufferedImage lased = laser(superDeepFried);
 
           RescaleOp rescaleOp = new RescaleOp(1.2f, 15, null);
 
-          rescaleOp.filter(lazed, lazed);
+          rescaleOp.filter(lased, lased);
 
           //write to data
-          ImageIO.write(lazed, "png", new File("../data/profileToEdit.png"));
+          ImageIO.write(lased, "png", new File("../data/profileToEdit.png"));
 
           repaint();
         }catch(Exception exp){
