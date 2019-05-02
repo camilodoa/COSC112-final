@@ -1,7 +1,9 @@
+//imports=======================================================================
 import javax.swing.JPanel;
 import java.util.Vector;
 import java.awt.image.BufferedImage;
 import java.awt.*;
+//imports=======================================================================
 
 
 public class Page extends JPanel{
