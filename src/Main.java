@@ -13,33 +13,14 @@ import java.awt.GradientPaint;
 public class Main extends Page{
 
 
-  public void run(){ //=========================================================
-    JFrame appPage = new JFrame("Face Distorter 2000");
-    appPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    appPage.setResizable(false);
-
-
-    // Greeting page:
-    GreetingPage greetingInstance = new GreetingPage();
-
-    appPage.setContentPane(greetingInstance);
-    appPage.pack();
-    appPage.setVisible(true);
-
-    while(showImage!= true){
-      try{
-        Thread.sleep(500);
-      }catch (Exception e) {
-        e.printStackTrace();
-      }
-    }//run()====================================================================
+  public void run(JFrame app){ //=========================================================
+    Page.restart = false;
 
     // Image edit page:
     ImagePage imageInstance = new ImagePage();
-
-    appPage.setContentPane(imageInstance);
-    appPage.pack();
-    appPage.setVisible(true);
+    app.setContentPane(imageInstance);
+    app.pack();
+    app.setVisible(true);
 
     while(showFinalImage!= true){
       try{
@@ -50,14 +31,52 @@ public class Main extends Page{
     }
 
     FinalPage finalInstance = new FinalPage();
-    appPage.setContentPane(finalInstance);
-    appPage.pack();
-    appPage.setVisible(true);
-  }
+    app.setContentPane(finalInstance);
+    app.pack();
+    app.setVisible(true);
+
+    while(Page.restart!= true){
+      try{
+        Thread.sleep(500);
+      }catch (Exception e) {
+        e.printStackTrace();
+      }
+      if(Page.restart == true){
+        Page.restart = false;
+        Page.showFinalImage = false;
+        Page.showGreeting = false;
+        Page.showImage = true;
+
+        run(app);
+      }
+    }
+  }//run()======================================================================
 
   public static void main(String[] args){//=====================================
     Main app = new Main();
-    app.run();
+    JFrame appPage = new JFrame("Face Distorter 2000");
+    appPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    appPage.setResizable(false);
+
+
+    // Pages:
+    GreetingPage greetingInstance = new GreetingPage();
+
+    //greetingInstance
+    appPage.setContentPane(greetingInstance);
+    appPage.pack();
+    appPage.setVisible(true);
+
+
+    while(showImage!= true){
+      try{
+        Thread.sleep(500);
+      }catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+
+    app.run(appPage);
   }//Main()=====================================================================
 
 }

@@ -10,6 +10,9 @@ public class Page extends JPanel{
   static final int HEIGHT=580;
   static String imagePath;
   static Vector<Integer[]> coordinates;
+  static boolean restart = false;
+  static int downloadCounter = 0;
+
 
   static boolean showGreeting = true;
   static boolean showImage = false;
@@ -25,16 +28,13 @@ public class Page extends JPanel{
     showImage = false;
     showFinalImage = true;
   }
-  static void startOver(){
-    showFinalImage = false;
-    showGreeting = true;
-  }
+
 
   //helper methods
   static void setImagePath(String s){
     imagePath = s;
   }
-  
+
   static BufferedImage resize(BufferedImage img, int height, int width) {
     // resizes BufferedImage
     // code from:

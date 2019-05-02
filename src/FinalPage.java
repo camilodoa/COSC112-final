@@ -20,11 +20,13 @@ public class FinalPage extends Page{
   private final String imageToEdit;
   private final String editedImage;
 
+
   //constructor
   public FinalPage(){
     try{
       BufferedImage profileToEdit = ImageIO.read(new File("../data/profile.png")); //read existing file
       ImageIO.write(profileToEdit, "png", new File("../data/profileToEdit.png"));
+
     }catch(Exception e){
       e.printStackTrace();
     }
@@ -37,16 +39,6 @@ public class FinalPage extends Page{
   }
 
   //methods
-
-  //this one does nothing yet
-  private void airHead() throws Exception{//====================================
-    BufferedImage toEdit = ImageIO.read(new File(imageToEdit));
-
-    AffineTransform rotateCranium = new AffineTransform();
-
-  }//airHead()==================================================================
-
-
   private BufferedImage lazer(BufferedImage toEdit) throws Exception{//=========
     //places lazers at eye coordinates
 
@@ -83,7 +75,7 @@ public class FinalPage extends Page{
   }//deepFry()==================================================================
 
 
-  private static void runPython(){//============================================
+  private static void randPython(){//===========================================
     //runs random distortion python script
 
     String command = "python3 randomDistortion.py";
@@ -95,7 +87,7 @@ public class FinalPage extends Page{
     }catch(IOException | InterruptedException e){
       System.out.println(e);
     }
-  }//runPython()================================================================
+  }//randPython()===============================================================
 
 
   public void paintComponent(Graphics g){//=====================================
@@ -158,7 +150,8 @@ public class FinalPage extends Page{
           try{
             BufferedImage profile = ImageIO.read(new File("../data/profileToEdit.png"));
 
-            ImageIO.write(profile, "png", new File(directoryChooser.getSelectedFile().getAbsolutePath() + "/distortedProfile.png"));
+            ImageIO.write(profile, "png", new File(directoryChooser.getSelectedFile().getAbsolutePath() + "/distortedProfile"+downloadCounter+".png"));
+            downloadCounter++;
           }catch(IOException exp){
             exp.printStackTrace();
           }
@@ -182,7 +175,7 @@ public class FinalPage extends Page{
       @Override
       public void actionPerformed(ActionEvent e) {
 
-        runPython();
+        randPython();
 
         repaint();
       }
@@ -264,5 +257,32 @@ public class FinalPage extends Page{
         }
       }
     });
+
+    // Make restart button
+    JButton restart = new JButton("Restart");
+    restart.setOpaque(false);
+    restart.setContentAreaFilled(false);
+    restart.setBorderPainted(false);
+    restart.setForeground(headerColor);
+    restart.setFont(new Font("SansSerif", Font.PLAIN, 15));
+    restart.setBounds(WIDTH/4-200, HEIGHT/2+100, 200, 40);
+    add(restart);
+    restart.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JButton loading = new JButton("Loading...");
+        loading.setOpaque(true);
+        loading.setContentAreaFilled(true);
+        loading.setBorderPainted(false);
+        loading.setBackground(Color.white);
+        loading.setForeground(headerColor);
+        loading.setFont(new Font("SansSerif", Font.PLAIN, 10));
+        loading.setBounds(WIDTH/4-200, HEIGHT/2+110, 200, 40);
+        add(loading);
+
+        Page.restart = true;
+      }
+    });
+
   }//paintComponent()===========================================================
 }
