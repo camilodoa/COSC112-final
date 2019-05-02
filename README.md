@@ -1,13 +1,12 @@
-# COSC112-final
+# meme/me
 
-<img src='https://thumbs.gfycat.com/BogusAchingBluefintuna-size_restricted.gif' frameborder='0' scrolling='no' allowfullscreen width='640' height='406'/>
-
+<img src='https://thumbs.gfycat.com/DisastrousHarmfulDogwoodclubgall-size_restricted.gif' frameborder='0' scrolling='no' allowfullscreen width='640' height='406'/>
 
 
 Our final project for Amherst College's S2019 COSC-112 course.
 
-This program takes in the user's picture/profile and distorts it in a number of selectable ways.
-It uses a facial recognition back end in Python to help automate some distiortions.
+This program takes in the user's picture/profile and edits it in a number of selectable ways.
+It uses a facial recognition back end in Python to help automate some distortions.
 
 profile -> *weird* profile
 

@@ -30,12 +30,12 @@ public class GreetingPage extends Page {
 
     // Title and header
     Color headerColor = new Color(0,0,255);
-    Font headerFont = new Font("SansSerif", Font.BOLD, 30);
+    Font headerFont = new Font("SansSerif", Font.BOLD, 40);
     g.setColor(headerColor);
     g.fillRect(0, 0, WIDTH, 100);
     g.setColor(Color.WHITE);
     g.setFont(headerFont);
-    g.drawString("Face Distorter 2000", WIDTH/2-150, 50);
+    g.drawString("meme/me", WIDTH/2-100, 55);
 
 
     // Front page description
@@ -44,7 +44,7 @@ public class GreetingPage extends Page {
     g.setColor(Color.BLACK);
     int x_text = WIDTH/4;
     int y_text = HEIGHT/4;
-    g.drawString("Welcome to the Face Distorter 2000 program!",x_text,y_text);
+    g.drawString("Welcome to meme/me!",x_text,y_text);
     g.drawString("Click the button below to select a profile picture - square images (.jpg, .png, .jpeg) work best",x_text,y_text+40);
     g.drawString("Our facial recognition back end will identify faces (and eyes)",x_text,y_text+80);
     g.drawString("If your image was too complicated for it to identify, you can always reselect an image",x_text,y_text+120);

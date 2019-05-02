@@ -51,7 +51,7 @@ public class ImagePage extends Page{
     this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
     //headerfont
-    this.headerFont = new Font("SansSerif", Font.BOLD, 30);
+    this.headerFont = new Font("SansSerif", Font.BOLD, 40);
 
     //run python analysis
     this.runPython();
@@ -151,8 +151,7 @@ public class ImagePage extends Page{
     g.fillRect(0, 0, WIDTH, 100);
     g.setColor(Color.WHITE);
     g.setFont(headerFont);
-    g.drawString("Face Distorter 2000", WIDTH/2-150, 50);
-
+    g.drawString("meme/me", WIDTH/2-100, 55);
 
     //reselect button
     reselect.setBounds(WIDTH/4-175, HEIGHT/2, 160, 40);

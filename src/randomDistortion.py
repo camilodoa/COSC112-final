@@ -1,8 +1,13 @@
-#code from Stack exchange
-#https://stackoverflow.com/questions/5071063/is-there-a-library-for-image-warping-image-morphing-for-python-with-controlled
+'''
+code from Stack exchange--user made a working example
+from the sourcecode of the Pillow library
+
+link:
+https://stackoverflow.com/questions/5071063/is-there-a-library-for-image-warping-image-morphing-for-python-with-controlled
+'''
 
 import numpy as np
-from PIL import Image
+from PIL import Image #image manipulation library
 
 def quad_as_rect(quad):
     if quad[0] != quad[2]: return False
@@ -21,10 +26,12 @@ def rect_to_quad(rect):
     return (rect[0], rect[1], rect[0], rect[3], rect[2], rect[3], rect[2], rect[1])
 
 def shape_to_rect(shape):
+    #convert length of image to rect
     assert(len(shape) == 2)
     return (0, 0, shape[0], shape[1])
 
 def griddify(rect, w_div, h_div):
+    #convert rect to grid so we can distort it
     w = rect[2] - rect[0]
     h = rect[3] - rect[1]
     x_step = w / float(w_div)
@@ -42,6 +49,7 @@ def griddify(rect, w_div, h_div):
     return grid
 
 def distort_grid(org_grid, max_shift):
+    #change grid randomly
     new_grid = np.copy(org_grid)
     x_min = np.min(new_grid[:, :, 0])
     y_min = np.min(new_grid[:, :, 1])
@@ -49,6 +57,7 @@ def distort_grid(org_grid, max_shift):
     y_max = np.max(new_grid[:, :, 1])
 
     #here come that random:
+    #pick random number [-50, 50] and shift values in that grid accordingly
     new_grid += np.random.randint(- max_shift, max_shift + 1, new_grid.shape)
     new_grid[:, :, 0] = np.maximum(x_min, new_grid[:, :, 0])
     new_grid[:, :, 1] = np.maximum(y_min, new_grid[:, :, 1])
@@ -56,7 +65,8 @@ def distort_grid(org_grid, max_shift):
     new_grid[:, :, 1] = np.minimum(y_max, new_grid[:, :, 1])
     return new_grid
 
-def grid_to_mesh(src_grid, dst_grid):
+def grid_to_mesh(src_grid, dst_grid): #convert grid back to mesh
+    #we use this mesh in our im.transform() function
     assert(src_grid.shape == dst_grid.shape)
     mesh = []
     for i in range(src_grid.shape[0] - 1):

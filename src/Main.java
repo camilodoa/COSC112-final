@@ -54,7 +54,7 @@ public class Main extends Page{
 
   public static void main(String[] args){//=====================================
     Main app = new Main();
-    JFrame appPage = new JFrame("Face Distorter 2000");
+    JFrame appPage = new JFrame("meme/me");
     appPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     appPage.setResizable(false);
 

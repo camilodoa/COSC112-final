@@ -91,19 +91,19 @@ public class FinalPage extends Page{
 
 
   public void paintComponent(Graphics g){//=====================================
-    Font headerFont = new Font("SansSerif", Font.BOLD, 30);
-    Color headerColor = new Color(0,0,255);
 
     //Background
     g.setColor(Color.WHITE);
     g.fillRect(0,0,WIDTH,HEIGHT);
 
     //Header
+    Font headerFont = new Font("SansSerif", Font.BOLD, 40);
+    Color headerColor = new Color(0,0,255);
     g.setColor(headerColor);
     g.fillRect(0, 0, WIDTH, 100);
     g.setColor(Color.WHITE);
     g.setFont(headerFont);
-    g.drawString("Face Distorter 2000", WIDTH/2-150, 50);
+    g.drawString("meme/me", WIDTH/2-100, 55);
 
     //outline of image border
     Graphics2D g2 = (Graphics2D) g;
