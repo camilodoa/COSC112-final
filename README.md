@@ -1,6 +1,6 @@
 # COSC112-final
 
-<img src='https://thumbs.gfycat.com/BogusAchingBluefintuna-size_restricted.gif' frameborder='0' scrolling='no' allowfullscreen width='640' height='406'/>
+<img src='https://thumbs.gfycat.com/DisastrousHarmfulDogwoodclubgall-size_restricted.gif' frameborder='0' scrolling='no' allowfullscreen width='640' height='406'/>
 
 
 
