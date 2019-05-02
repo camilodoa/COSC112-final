@@ -21,3 +21,4 @@ profile -> *weird* profile
 
 ## To Run:
   * `javac *.java && java Main`
+  * *there are test images you can try out in the `images` folder!*
