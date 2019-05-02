@@ -1,6 +1,6 @@
 # meme/me
 
-<img src='https://thumbs.gfycat.com/DisastrousHarmfulDogwoodclubgall-size_restricted.gif' frameborder='0' scrolling='no' allowfullscreen width='640' height='406'/>
+<img src='https://thumbs.gfycat.com/PowerlessSophisticatedJumpingbean-size_restricted.gif' frameborder='0' scrolling='no' allowfullscreen width='640' height='405'/>
 
 
 Our final project for Amherst College's S2019 COSC-112 course.
