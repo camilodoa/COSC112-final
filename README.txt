@@ -22,3 +22,4 @@ profile -> *weird* profile
 ## To Run:
   * `javac *.java && java Main`
   * *there are test images you can try out in the `images` folder!*
+  * Please be patient if you want to try other distortions after saving an image! The program takes a little time to get back on track.
